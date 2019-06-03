@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="menu_label">cubb</string>
+    <string name="tvMovieTitle">Descrição</string>
+</resources>
