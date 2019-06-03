@@ -13,8 +13,6 @@ class CubosApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-
         startKoin {
             androidContext(this@CubosApplication)
             modules(listOf(

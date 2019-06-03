@@ -16,18 +16,14 @@ class DramaMoviePresenter (private val movieUseCase: MovieUseCase,
 
     override lateinit var view: DramaMovieContract.View
 
-
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = uiContext + job
 
-
-
     override fun start() {
         //
     }
-
 
     override fun getMovies(genreId: Int, page: Int) {
 
@@ -54,7 +50,6 @@ class DramaMoviePresenter (private val movieUseCase: MovieUseCase,
                 }
             }
         }
-
 
     }
 

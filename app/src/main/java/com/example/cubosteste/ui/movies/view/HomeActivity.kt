@@ -19,6 +19,9 @@ import com.example.cubosteste.ui.movies.adapter.MoviesPageAdapter
 import com.example.cubosteste.ui.movies.adapter.MoviesRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 class HomeActivity : AppCompatActivity(), MovieContract.View {
 
@@ -47,6 +50,11 @@ class HomeActivity : AppCompatActivity(), MovieContract.View {
     override fun onResume() {
         super.onResume()
         presenter.view = this
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.destroy()
     }
 
     private fun setupPager() {
@@ -88,8 +96,7 @@ class HomeActivity : AppCompatActivity(), MovieContract.View {
     private fun observerSearchText(searchText: SearchView) {
         searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchMovieMode(query?.isEmpty() ?: true)
-                Toast.makeText(this@HomeActivity, "Pesquisar: $query", Toast.LENGTH_SHORT).show()
+                setupMovieScreen(query?.isEmpty() ?: true)
                 progress.visibility = View.VISIBLE
                 presenter.getMoviesByQuery(query ?: "")
                 return true
@@ -97,18 +104,16 @@ class HomeActivity : AppCompatActivity(), MovieContract.View {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText?.isEmpty() != false) {
-                    searchMovieMode(true)
+                    setupMovieScreen(true)
                 }
 
-                //if (newText?.isEmpty() == false) presenter.getMoviesByQuery(newText ?: "")
                 return true
             }
 
         })
     }
 
-    private fun searchMovieMode(isEmpty: Boolean) {
-
+    private fun setupMovieScreen(isEmpty: Boolean) {
         if (isEmpty) {
             viewPager.visibility = View.VISIBLE
             tableLayout.visibility = View.VISIBLE
@@ -132,17 +137,32 @@ class HomeActivity : AppCompatActivity(), MovieContract.View {
             recyclerAdapter.notifyDataSetChanged()
             progress.visibility = View.GONE
             tvMovieError.visibility = View.INVISIBLE
+            hideKeyboard(this)
         }
     }
 
     override fun setLoadingIndicator(show: Boolean) {
         if (show) {
+            hideKeyboard(this)
             progress.visibility = View.VISIBLE
-        } else progress.visibility = View.GONE
+        } else {
+            hideKeyboard(this)
+            progress.visibility = View.GONE
+        }
     }
 
     override fun showMovieNotFound() {
         Toast.makeText(this, "Não foi possível encontrar esse filme no momento!", Toast.LENGTH_LONG).show()
+        hideKeyboard(this)
         progress.visibility = View.GONE
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

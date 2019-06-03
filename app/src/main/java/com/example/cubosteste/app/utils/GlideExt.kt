@@ -9,6 +9,6 @@ fun ImageView.loadImage(url: String) {
         .with(this.context)
         .load(Constants.BASE_URL_IMG + url)
         .centerCrop()
-        .placeholder(R.drawable.ic_mtrl_checked_circle)
+        .placeholder(R.mipmap.ic_launcher_round)
         .into(this)
 }

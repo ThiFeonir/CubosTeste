@@ -22,17 +22,4 @@ val dataModule = module {
     single { MovieUseCase(get()) }
     factory { MovieMapper() }
 
-    /*// Resume
-    single { ResumeCacheRepository(get()) as ResumeRepository }
-    single { ResumeUseCase(get()) }
-
-    *//* Login *//*
-    single {
-        WebServiceFactory.makeWebService<UserWebService>(
-            WebServiceFactory.makeOkHttpClient(WebServiceFactory.provideHttpLoggingInterceptor()),
-            BASE_URL,
-            WebServiceFactory.makeGson())
-    }
-    single { LoginUseCase(get()) }
-    single { LoginRemoteImpl(get()) as LoginRemoteRepository }*/
 }

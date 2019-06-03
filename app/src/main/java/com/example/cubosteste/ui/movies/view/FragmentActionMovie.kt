@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cubosteste.R
@@ -55,7 +56,7 @@ class FragmentActionMovie : Fragment(), MovieContract.View {
     }
 
     override fun showMovieNotFound() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(requireContext(), "Não foi possível encontrar esse filme no momento!", Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {

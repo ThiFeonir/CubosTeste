@@ -24,12 +24,9 @@ class MovieViewHolder(
             tvMovieName.text = content.title
             launch {
                 content.posterPath?.let {
-                    //progress.toVisible()
                     imgvMovie.loadImage(it)
-                    //progress.toGone()
                 } ?: run {
                     imgvMovie.setImageResource(R.mipmap.ic_launcher_round)
-                    //progress.toGone()
                 }
             }
         }
