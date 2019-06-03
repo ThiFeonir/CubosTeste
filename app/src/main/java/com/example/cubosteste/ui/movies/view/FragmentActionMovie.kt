@@ -29,6 +29,8 @@ class FragmentActionMovie : Fragment(), MovieContract.View {
 
     override fun onResume() {
         super.onResume()
+        recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
+        recycler.adapter = adapter
         presenter.view = this
         presenter.getMovies(Constants.ACTION_REQUEST_ID, 1)
     }
@@ -44,13 +46,16 @@ class FragmentActionMovie : Fragment(), MovieContract.View {
     override fun showMovies(movies: List<MovieResponse>) {
         movies.let {
             adapter.setList(movies)
-            recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
-            recycler.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
     }
 
     override fun setLoadingIndicator(show: Boolean) {
         //
+    }
+
+    override fun showMovieNotFound() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onStop() {

@@ -9,18 +9,15 @@ class MovieUseCase(private val movieRepository: MovieRepository) {
 
     suspend fun getMovies(genreId: Int, page: Int) : Result<MovieListResponse> {
 
-        val movieResult = movieRepository.getMovies(genreId, page)
-
-        return when (movieResult) {
+        return when (val movieResult = movieRepository.getMovies(genreId, page)) {
             is Result.Success -> movieResult
             is Result.Error -> Result.Error(movieResult.exception)
         }
     }
 
     suspend fun getMoviesByQuery(query: String) : Result<MovieListResponse> {
-        val queryResult = movieRepository.getMoviesByQuery(query)
 
-        return when (queryResult) {
+        return when (val queryResult = movieRepository.getMoviesByQuery(query)) {
             is Result.Success -> queryResult
             is Result.Error -> Result.Error(queryResult.exception)
         }

@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/holo_orange_dark"
-
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -34,28 +33,49 @@
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+        android:visibility="visible">
 
     </androidx.viewpager.widget.ViewPager>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listGeneric"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recyclerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/colorPrimaryDark"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/listGeneric"
-        app:layout_constraintEnd_toEndOf="@id/listGeneric"
-        app:layout_constraintTop_toTopOf="@id/listGeneric"
-        app:layout_constraintBottom_toBottomOf="@id/listGeneric"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listGeneric"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/listGeneric"
+            app:layout_constraintEnd_toEndOf="@id/listGeneric"
+            app:layout_constraintTop_toTopOf="@id/listGeneric"
+            app:layout_constraintBottom_toBottomOf="@id/listGeneric"/>
+
+        <TextView
+            android:id="@+id/tvMovieError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="bold"
+            android:text="Não foi possível encontrar filmes no momento!"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

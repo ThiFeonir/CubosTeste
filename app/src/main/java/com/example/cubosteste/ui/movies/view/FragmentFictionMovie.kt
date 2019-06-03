@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_movies_content.*
 import org.koin.android.ext.android.inject
 
 class FragmentFictionMovie : Fragment(), MovieContract.View {
+    override fun showMovieNotFound() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override val presenter by inject<MovieContract.Presenter>()
 
@@ -28,6 +31,8 @@ class FragmentFictionMovie : Fragment(), MovieContract.View {
 
     override fun onResume() {
         super.onResume()
+        recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
+        recycler.adapter = adapter
         presenter.view = this
         presenter.getMovies(Constants.FICTION_REQUEST_ID, 1)
     }
@@ -43,8 +48,7 @@ class FragmentFictionMovie : Fragment(), MovieContract.View {
     override fun showMovies(movies: List<MovieResponse>) {
         movies.let {
             adapter.setList(movies)
-            recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
-            recycler.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
     }
 

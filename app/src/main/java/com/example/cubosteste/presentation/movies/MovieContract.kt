@@ -10,6 +10,7 @@ interface MovieContract {
     interface View : BaseView<Presenter> {
         var isActive: Boolean
         fun showMovies(movies: List<MovieResponse>)
+        fun showMovieNotFound()
         fun setLoadingIndicator(show: Boolean)
 
     }

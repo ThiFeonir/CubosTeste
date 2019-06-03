@@ -1,6 +1,7 @@
 package com.example.cubosteste.presentation.movies
 
 import android.provider.Contacts
+import android.util.Log
 import android.view.View
 import com.example.cubosteste.app.utils.AppExecutors
 import com.example.cubosteste.data.Result
@@ -50,7 +51,7 @@ class MoviePresenter (private val movieUseCase: MovieUseCase,
 
             } else {
                 if (view.isActive) {
-                    //moviesView.showLoadingReposError()
+                    view.showMovieNotFound()
                 }
             }
         }
@@ -62,6 +63,7 @@ class MoviePresenter (private val movieUseCase: MovieUseCase,
             val result = movieUseCase.getMoviesByQuery(query)
 
             if (result is Result.Success) {
+                Log.d("Sucess", "tem data")
                 val moviesToShow = ArrayList<MovieResponse>()
 
                 for (movies in result.data.result) {
@@ -72,7 +74,7 @@ class MoviePresenter (private val movieUseCase: MovieUseCase,
                 view.showMovies(moviesToShow)
 
             } else {
-                //moviesView.showLoadingReposError()
+                view.showMovieNotFound()
             }
         }
     }

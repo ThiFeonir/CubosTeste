@@ -30,7 +30,8 @@ class FragmentDramaMovie : Fragment(), DramaMovieContract.View {
 
     override fun onResume() {
         super.onResume()
-        Log.d("FragmentDrama", "entrou")
+        recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
+        recycler.adapter = adapter
         presenter.view = this
         presenter.getMovies(Constants.DRAMA_REQUEST_ID, 1)
     }
@@ -46,8 +47,7 @@ class FragmentDramaMovie : Fragment(), DramaMovieContract.View {
     override fun showMovies(movies: List<MovieResponse>) {
         movies.let {
             adapter.setList(movies)
-            recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
-            recycler.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
     }
 
